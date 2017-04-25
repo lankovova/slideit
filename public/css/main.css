@@ -48,7 +48,6 @@ body {
   .card-flipping-block .cards .card-container {
     width: 100px;
     height: 200px;
-    position: relative;
     -webkit-perspective: 800px;
             perspective: 800px; }
     .card-flipping-block .cards .card-container:hover .card {
@@ -57,12 +56,12 @@ body {
     .card-flipping-block .cards .card-container .card {
       width: 100%;
       height: 100%;
-      position: absolute;
+      position: relative;
       -webkit-transform-style: preserve-3d;
               transform-style: preserve-3d;
-      transition: -webkit-transform 500ms;
-      transition: transform 500ms;
-      transition: transform 500ms, -webkit-transform 500ms; }
+      transition: -webkit-transform 500ms ease-in-out;
+      transition: transform 500ms ease-in-out;
+      transition: transform 500ms ease-in-out, -webkit-transform 500ms ease-in-out; }
       .card-flipping-block .cards .card-container .card .card-part {
         position: absolute;
         width: 100%;
