@@ -5,3 +5,38 @@
 	&.flex-center
 		justify-content: center
 		align-items: center
+
+body
+	min-height: 100vh
+	width: 100%
+
+.card-flipping-block
+	width: 100%
+	.cards
+		.card-container
+			width: 100px
+			height: 200px
+			position: relative
+			perspective: 800px
+			&:hover
+				.card
+					transform: rotateY(180deg)
+			.card
+				width: 100%
+				height: 100%
+				position: absolute
+				transform-style: preserve-3d
+				transition: transform 500ms
+				.card-part
+					position: absolute
+					width: 100%
+					height: 100%
+					padding: 20px
+					box-sizing: border-box
+					text-align: center
+					backface-visibility: hidden
+				.front
+					background: lightblue
+				.back
+					background: lightgreen
+					transform: rotateY(180deg)

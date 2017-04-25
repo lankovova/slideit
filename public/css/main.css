@@ -38,3 +38,43 @@ a {
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center; }
+
+body {
+  min-height: 100vh;
+  width: 100%; }
+
+.card-flipping-block {
+  width: 100%; }
+  .card-flipping-block .cards .card-container {
+    width: 100px;
+    height: 200px;
+    position: relative;
+    -webkit-perspective: 800px;
+            perspective: 800px; }
+    .card-flipping-block .cards .card-container:hover .card {
+      -webkit-transform: rotateY(180deg);
+              transform: rotateY(180deg); }
+    .card-flipping-block .cards .card-container .card {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      -webkit-transform-style: preserve-3d;
+              transform-style: preserve-3d;
+      transition: -webkit-transform 500ms;
+      transition: transform 500ms;
+      transition: transform 500ms, -webkit-transform 500ms; }
+      .card-flipping-block .cards .card-container .card .card-part {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        text-align: center;
+        -webkit-backface-visibility: hidden;
+                backface-visibility: hidden; }
+      .card-flipping-block .cards .card-container .card .front {
+        background: lightblue; }
+      .card-flipping-block .cards .card-container .card .back {
+        background: lightgreen;
+        -webkit-transform: rotateY(180deg);
+                transform: rotateY(180deg); }
