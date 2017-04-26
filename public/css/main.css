@@ -38,10 +38,40 @@ a {
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center; }
+  .flexbox.flex-col {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: column;
+        -ms-flex-flow: column;
+            flex-flow: column; }
 
 body {
   min-height: 100vh;
   width: 100%; }
+
+.flip-cards-slider-block .slider .slides .slide-container {
+  -webkit-perspective: 800px;
+          perspective: 800px;
+  margin-right: 10px;
+  position: relative;
+  height: 200px; }
+  .flip-cards-slider-block .slider .slides .slide-container:hover .slide {
+    -webkit-transform: rotateY(0deg) translate(100%, 0px);
+            transform: rotateY(0deg) translate(100%, 0px); }
+  .flip-cards-slider-block .slider .slides .slide-container .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    color: white;
+    -webkit-transform: rotateY(70deg);
+            transform: rotateY(70deg);
+    transition: -webkit-transform 300ms ease;
+    transition: transform 300ms ease;
+    transition: transform 300ms ease, -webkit-transform 300ms ease; }
 
 .card-flipping-block {
   width: 100%; }
