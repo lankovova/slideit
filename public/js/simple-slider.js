@@ -42,7 +42,6 @@ SimpleSlider.prototype = {
 	},
 	// Resize slider
 	setSize : function() {
-		console.log(this);
 		this.slides.width(this.slider.width() * this.slide.length);
 		this.slide.width(this.slider.width());
 	}
