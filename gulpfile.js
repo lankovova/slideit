@@ -54,7 +54,7 @@ gulp.task('sass', () => {
 
 gulp.task('serve', ['sass', 'browserSync'], () => {
 	gulp.watch(folder.src + 'sass/**/*.sass', ['sass']);
-	gulp.watch('*.js').on('change', browserSync.reload);
+	gulp.watch('public/**/*.js').on('change', browserSync.reload);
 	gulp.watch('*.html').on('change', browserSync.reload);
 })
 
