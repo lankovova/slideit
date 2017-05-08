@@ -118,5 +118,19 @@ body {
           -ms-flex-align: center;
               align-items: center;
       background: lightgreen;
-      padding: 20px 30px;
-      box-sizing: border-box; }
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-flow: column;
+          -ms-flex-flow: column;
+              flex-flow: column; }
+      .slider .slides .slide-content {
+        box-sizing: border-box; }
+        .slider .slides .slide-content-padding {
+          padding: 20px 30px; }
+      .slider .slides .slide .image-container {
+        width: 100%;
+        height: 300px; }
+        .slider .slides .slide .image-container img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; }

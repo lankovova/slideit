@@ -1,13 +1,13 @@
 $(function() {
 
 	var firstSlider = new SimpleSlider($('.first-slider-wrapper'));
-
 	var secondSlider = new SimpleSlider($('.second-slider-wrapper'));
 
 });
 
 // Constructor for SimpleSlider class
 function SimpleSlider(userWrap) {
+	// Slider variables
 	this.slider = userWrap.find('.slider');
 	this.slides = this.slider.find('.slides');
 	this.slide = this.slides.find('.slide');
@@ -31,6 +31,7 @@ function SimpleSlider(userWrap) {
 	// Adaptive sizing
 	$(window).resize(() => {
 		this.setSize();
+		this.slideTo(this.currentSlide);
 	});
 }
 
