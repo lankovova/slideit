@@ -1,12 +1,15 @@
-$(function() {
+'use strict';
+
+$(function () {
 
 	var firstSlider = new SimpleSlider($('.first-slider-wrapper'));
 	var secondSlider = new SimpleSlider($('.second-slider-wrapper'));
-
 });
 
 // Constructor for SimpleSlider class
 function SimpleSlider(userWrap) {
+	var _this = this;
+
 	// Slider variables
 	this.slider = userWrap.find('.slider');
 	this.slides = this.slider.find('.slides');
@@ -19,33 +22,31 @@ function SimpleSlider(userWrap) {
 	this.setSize();
 
 	// Slide left
-	this.slider.find('#left').click(() => {
-		(this.currentSlide === 0) ? this.slideTo(this.amountOfSlides - 1) : this.slideTo(this.currentSlide - 1);
+	this.slider.find('#left').click(function () {
+		_this.currentSlide === 0 ? _this.slideTo(_this.amountOfSlides - 1) : _this.slideTo(_this.currentSlide - 1);
 	});
 
 	// Slide right
-	this.slider.find('#right').click(() => {
-		(this.currentSlide === this.amountOfSlides - 1) ? this.slideTo(0) : this.slideTo(this.currentSlide + 1);
+	this.slider.find('#right').click(function () {
+		_this.currentSlide === _this.amountOfSlides - 1 ? _this.slideTo(0) : _this.slideTo(_this.currentSlide + 1);
 	});
 
 	// Adaptive sizing
-	$(window).resize(() => {
-		this.setSize();
-		this.slideTo(this.currentSlide);
+	$(window).resize(function () {
+		_this.setSize();
+		_this.slideTo(_this.currentSlide);
 	});
 }
 
 SimpleSlider.prototype = {
 	// Slide function
-	slideTo : function(destinationSlide) {
-		this.slides.css({'margin-left': -this.slider.width() * destinationSlide});
+	slideTo: function slideTo(destinationSlide) {
+		this.slides.css({ 'margin-left': -this.slider.width() * destinationSlide });
 		this.currentSlide = destinationSlide;
 	},
 	// Resize slider
-	setSize : function() {
+	setSize: function setSize() {
 		this.slides.width(this.slider.width() * this.slide.length);
 		this.slide.width(this.slider.width());
 	}
-}
-
-
+};
