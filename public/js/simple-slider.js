@@ -59,16 +59,21 @@ function SimpleSlider(userWrap) {
 
 SimpleSlider.prototype = {
 	// Slide function
+	slideToCursor: function slideToCursor(yCoord) {
+		// this.slides.css({ 'margin-left': -this.slider.width() * destinationSlide });
+		// this.currentSlide = destinationSlide;
+	},
+	// Slide function
 	slideTo: function slideTo(destinationSlide) {
 		this.slides.css({ 'margin-left': -this.slider.width() * destinationSlide });
 		this.currentSlide = destinationSlide;
 	},
 	// Slide left function
-	slideLeft: function slideLeft(destinationSlide) {
+	slideLeft: function slideLeft() {
 		this.currentSlide === 0 ? this.slideTo(this.amountOfSlides - 1) : this.slideTo(this.currentSlide - 1);
 	},
 	// Slide right function
-	slideRight: function slideRight(destinationSlide) {
+	slideRight: function slideRight() {
 		this.currentSlide === this.amountOfSlides - 1 ? this.slideTo(0) : this.slideTo(this.currentSlide + 1);
 	},
 	// Resize slider
