@@ -9,6 +9,7 @@ $(function () {
 // Constructor for SimpleSlider class
 function SimpleSlider(userWrap) {
 	var _this = this;
+	var drag = false;
 
 	// Slider variables
 	this.slider = userWrap.find('.slider');
@@ -23,12 +24,30 @@ function SimpleSlider(userWrap) {
 
 	// Slide left
 	this.slider.find('#left').click(function () {
-		_this.currentSlide === 0 ? _this.slideTo(_this.amountOfSlides - 1) : _this.slideTo(_this.currentSlide - 1);
+		_this.slideLeft();
 	});
 
 	// Slide right
 	this.slider.find('#right').click(function () {
-		_this.currentSlide === _this.amountOfSlides - 1 ? _this.slideTo(0) : _this.slideTo(_this.currentSlide + 1);
+		_this.slideRight();
+	});
+
+	// Mouse drag events
+	this.slider.mousedown(function() {
+		drag = true;
+	});
+	this.slider.mousemove(function(e) {
+		if (drag) {
+			var x = e.pageX - this.offsetLeft;
+			var y = e.pageY - this.offsetTop;
+			console.log("x: " + x, "y: " + y);
+		}
+	});
+	this.slider.mouseup(function() {
+		drag = false;
+	});
+	this.slider.mouseleave(function() {
+		drag = false;
 	});
 
 	// Adaptive sizing
@@ -43,6 +62,14 @@ SimpleSlider.prototype = {
 	slideTo: function slideTo(destinationSlide) {
 		this.slides.css({ 'margin-left': -this.slider.width() * destinationSlide });
 		this.currentSlide = destinationSlide;
+	},
+	// Slide left function
+	slideLeft: function slideLeft(destinationSlide) {
+		this.currentSlide === 0 ? this.slideTo(this.amountOfSlides - 1) : this.slideTo(this.currentSlide - 1);
+	},
+	// Slide right function
+	slideRight: function slideRight(destinationSlide) {
+		this.currentSlide === this.amountOfSlides - 1 ? this.slideTo(0) : this.slideTo(this.currentSlide + 1);
 	},
 	// Resize slider
 	setSize: function setSize() {
