@@ -1,6 +1,7 @@
 'use sctrict';
 var $;
 var Vlslider = (function () {
+    // private dragStartPos: number;
     function Vlslider(slider) {
         var _this = this;
         this.slider = slider.find('.slider');
@@ -16,8 +17,9 @@ var Vlslider = (function () {
         // Click to slide right
         this.slider.find('#right').click(function () { _this.slideRight(); });
         // Mouse drag events
-        this.slider.mousedown(function () {
+        this.slider.mousedown(function (e) {
             _this.drag = true;
+            // this.dragStartPos = e.pageX - this.slider.offset().left;
         });
         this.slider.mousemove(function (e) {
             if (_this.drag) {
@@ -34,7 +36,7 @@ var Vlslider = (function () {
         // Adaptive sizing
         $(window).resize(function () {
             _this.setSize();
-            _this.slideTo(_this.currentSlide);
+            _this.slides.css({ 'margin-left': -_this.slider.width() * _this.currentSlide });
         });
         console.log("Vlslider created :)");
     }
@@ -43,9 +45,12 @@ var Vlslider = (function () {
         this.slides.width(this.slider.width() * this.slide.length);
         this.slide.width(this.slider.width());
     };
+    // TODO: Drag moving
+    // Move slider to cursor offset
     Vlslider.prototype.slideToCursor = function (offset) {
-        console.log(offset);
-        this.slides.css({ 'margin-left': offset });
+        // let prevMargin = parseInt(this.slides.css("margin-left"));
+        // console.log(prevMargin);
+        // this.slides.css({ 'margin-left': offset - this.dragStartPos });
     };
     // Slide to destination slide
     Vlslider.prototype.slideTo = function (destinationSlide) {
