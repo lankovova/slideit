@@ -15,6 +15,22 @@ var Vlslider = (function () {
         this.slider.find('#left').click(function () { _this.slideLeft(); });
         // Click to slide right
         this.slider.find('#right').click(function () { _this.slideRight(); });
+        // Mouse drag events
+        this.slider.mousedown(function () {
+            _this.drag = true;
+        });
+        this.slider.mousemove(function (e) {
+            if (_this.drag) {
+                var x = e.pageX - _this.slider.offset().left;
+                _this.slideToCursor(x);
+            }
+        });
+        this.slider.mouseup(function () {
+            _this.drag = false;
+        });
+        this.slider.mouseleave(function () {
+            _this.drag = false;
+        });
         // Adaptive sizing
         $(window).resize(function () {
             _this.setSize();
@@ -26,6 +42,10 @@ var Vlslider = (function () {
     Vlslider.prototype.setSize = function () {
         this.slides.width(this.slider.width() * this.slide.length);
         this.slide.width(this.slider.width());
+    };
+    Vlslider.prototype.slideToCursor = function (offset) {
+        console.log(offset);
+        this.slides.css({ 'margin-left': offset });
     };
     // Slide to destination slide
     Vlslider.prototype.slideTo = function (destinationSlide) {

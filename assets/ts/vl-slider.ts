@@ -27,6 +27,23 @@ class Vlslider {
 		// Click to slide right
 		this.slider.find('#right').click(() => { this.slideRight(); });
 
+		// Mouse drag events
+		this.slider.mousedown(() => {
+			this.drag = true;
+		});
+		this.slider.mousemove((e: any) => {
+			if (this.drag) {
+				let x = e.pageX - this.slider.offset().left;
+				this.slideToCursor(x);
+			}
+		});
+		this.slider.mouseup(() => {
+			this.drag = false;
+		});
+		this.slider.mouseleave(() => {
+			this.drag = false;
+		});
+
 		// Adaptive sizing
 		$(window).resize(() => {
 			this.setSize();
@@ -40,6 +57,10 @@ class Vlslider {
 	private setSize() {
 		this.slides.width(this.slider.width() * this.slide.length);
 		this.slide.width(this.slider.width());
+	}
+	private slideToCursor(offset: number) {
+		console.log(offset);
+		this.slides.css({ 'margin-left': offset });
 	}
 
 	// Slide to destination slide
