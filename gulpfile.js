@@ -6,7 +6,7 @@ var // modules
 	mqpacker     = require('css-mqpacker'),
 	cssnano      = require('cssnano'),
 	rename       = require('gulp-rename'),
-	ts           = require('gulp-typescript'),
+	babel        = require('gulp-babel'),
 	uglify       = require('gulp-uglify'),
 	stripdebug   = require('gulp-strip-debug'),
 	newer        = require('gulp-newer'),
@@ -54,17 +54,17 @@ gulp.task('sass', () => {
 				.pipe(browserSync.stream())
 });
 
-gulp.task('ts', function () {
-	return gulp.src(folder.src + 'ts/**/*.ts')
-		.pipe(ts({
-			noImplicitAny: true
+gulp.task('js', function () {
+	return gulp.src(folder.src + 'js/**/*.js')
+		.pipe(babel({
+			presets: ['es2015']
 		}))
 		.pipe(gulp.dest('public/js/'));
 });
 
-gulp.task('serve', ['sass', 'browserSync'], () => {
+gulp.task('serve', ['sass', 'js', 'browserSync'], () => {
 	gulp.watch(folder.src + 'sass/**/*.sass', ['sass']);
-	gulp.watch(folder.src + 'ts/**/*.ts', ['ts']).on('change', browserSync.reload);
+	gulp.watch(folder.src + 'js/**/*.js', ['js']).on('change', browserSync.reload);
 	gulp.watch('*.html').on('change', browserSync.reload);
 })
 
