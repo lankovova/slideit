@@ -6,67 +6,52 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Slide It</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="public/css/main.min.css">
+	<link rel="stylesheet" href="public/css/vl-slider.min.css">
 </head>
 <body class="flexbox flex-center flex-col">
 
-	<!--<div class="flip-cards-slider-block flexbox flex-center">
-		<div class="slider">
-			<div class="slides flexbox">
-				<div class="slide-container">
-					<div class="slide flexbox flex-center">Slide1</div>
+	<div class="row">
+		<div class="first-slider-wrapper">
+			<div class="slider">
+				<div class="controls">
+					<div id="left">
+						<i class="material-icons">keyboard_arrow_left</i>
+					</div>
+					<div id="right">
+						<i class="material-icons">keyboard_arrow_right</i>
+					</div>
 				</div>
-
-				<div class="slide-container">
-					<div class="slide flexbox flex-center">Slide2</div>
-				</div>
-
-				<div class="slide-container">
-					<div class="slide flexbox flex-center">Slide3</div>
-				</div>
-
-				<div class="slide-container">
-					<div class="slide flexbox flex-center">Slide4</div>
-				</div>
-			</div>
-		</div>
-	</div>-->
-
-	<div class="card-flipping-block flexbox flex-center">
-		<div class="cards flexbox">
-
-			<div class="card-container">
-				<div class="card">
-					<div class="card-part front">Front</div>
-					<div class="card-part back">Back</div>
-				</div>
-			</div>
-
-			<div class="card-container">
-				<div class="card">
-					<div class="card-part front">Front</div>
-					<div class="card-part back">Back</div>
+				<div class="slides">
+					<div class="slide">
+						<div class="slide-content slide-content-padding">
+							Sed vel mollis ex, sed ultricies ligula. Quisque eget viverra magna. Donec egestas dapibus lorem et ullamcorper. Fusce venenatis, velit at ultrices molestie, sapien felis feugiat ipsum, ultrices semper sem odio a massa. Donec a augue eu tortor rhoncus faucibus non sit amet mi. Nullam sit amet tortor in est dictum lacinia.
+						</div>
+					</div>
+					<div class="slide">
+						<div class="slide-content slide-content-padding">Slide 2</div>
+					</div>
+					<div class="slide">
+						<div class="slide-content slide-content-padding">Slide 3</div>
+					</div>
+					<div class="slide">
+						<div class="image-container">
+							<img src="./public/images/vzuh.jpeg" alt="">
+						</div>
+						<div class="slide-content slide-content-padding">Slide 4</div>
+					</div>
 				</div>
 			</div>
-
-			<div class="card-container">
-				<div class="card">
-					<div class="card-part front">Front</div>
-					<div class="card-part back">Back</div>
-				</div>
-			</div>
-
-			<div class="card-container">
-				<div class="card">
-					<div class="card-part front">Front</div>
-					<div class="card-part back">Back</div>
-				</div>
-			</div>
-
 		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="public/js/main.js"></script>
+	<script src="public/js/vl-slider.js"></script>
+
+	<script>
+		$(function () {
+			var firstSlider = new Vlslider($('.first-slider-wrapper'));
+		});
+	</script>
+
 </body>
 </html>

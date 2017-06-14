@@ -13,7 +13,6 @@ var Vlslider = function () {
 		this.slider = slider.find('.slider');
 		this.slides = this.slider.find('.slides');
 		this.slide = this.slides.find('.slide');
-		this.drag = false;
 
 		this.slidesAmount = this.slide.length;
 		this.currentSlide = 0;
@@ -22,29 +21,11 @@ var Vlslider = function () {
 		this.setSize();
 		// Click to slide left
 		this.slider.find('#left').click(function () {
-			_this.slideLeft();
+			return _this.slideLeft();
 		});
 		// Click to slide right
 		this.slider.find('#right').click(function () {
-			_this.slideRight();
-		});
-
-		// Mouse drag events
-		this.slider.mousedown(function (e) {
-			_this.drag = true;
-			// this.dragStartPos = e.pageX - this.slider.offset().left;
-		});
-		this.slider.mousemove(function (e) {
-			if (_this.drag) {
-				var x = e.pageX - _this.slider.offset().left;
-				_this.slideToCursor(x);
-			}
-		});
-		this.slider.mouseup(function () {
-			_this.drag = false;
-		});
-		this.slider.mouseleave(function () {
-			_this.drag = false;
+			return _this.slideRight();
 		});
 
 		// Adaptive sizing
@@ -53,7 +34,11 @@ var Vlslider = function () {
 			_this.slides.css({ 'margin-left': -_this.slider.width() * _this.currentSlide });
 		});
 
-		console.log("Vlslider created :)");
+		// Drag functionality
+		// this.drag = false;
+		// this.prevMargin = 0;
+
+		// this.draggingEvents();
 	}
 
 	// Resize slider
@@ -65,23 +50,23 @@ var Vlslider = function () {
 			this.slides.width(this.slider.width() * this.slide.length);
 			this.slide.width(this.slider.width());
 		}
-		// TODO: Drag moving
+
+		// TODO: Slide if enough draged
+		// TODO: Prevent sliding to empty space
 		// Move slider to cursor offset
 
 	}, {
 		key: 'slideToCursor',
-		value: function slideToCursor(offset) {}
-		// let prevMargin = parseInt(this.slides.css("margin-left"));
-		// console.log(prevMargin);
-		// this.slides.css({ 'margin-left': offset - this.dragStartPos });
-
+		value: function slideToCursor(offset) {
+			this.slides.css({ 'margin-left': this.prevMargin + offset - this.dragStartPos });
+		}
 
 		// Slide to destination slide
 
 	}, {
 		key: 'slideTo',
 		value: function slideTo(destinationSlide) {
-			this.slides.animate({ 'margin-left': -this.slider.width() * destinationSlide }, 500);
+			this.slides.css({ 'margin-left': -this.slider.width() * destinationSlide });
 			this.currentSlide = destinationSlide;
 		}
 		// Slide left
@@ -97,6 +82,34 @@ var Vlslider = function () {
 		key: 'slideRight',
 		value: function slideRight() {
 			this.currentSlide === this.slidesAmount - 1 ? this.slideTo(0) : this.slideTo(this.currentSlide + 1);
+		}
+
+		// TODO: Implement this shit
+
+	}, {
+		key: 'draggingEvents',
+		value: function draggingEvents() {
+			var _this2 = this;
+
+			// Mouse drag events
+			this.slider.mousedown(function (event) {
+				_this2.drag = true;
+				_this2.dragStartPos = event.pageX - _this2.slider.offset().left;
+			});
+			this.slider.mousemove(function (event) {
+				if (_this2.drag) {
+					var x = event.pageX - _this2.slider.offset().left;
+					_this2.slideToCursor(x);
+				}
+			});
+			this.slider.mouseup(function () {
+				_this2.drag = false;
+				_this2.prevMargin = parseInt(_this2.slides.css("margin-left"));
+			});
+			this.slider.mouseleave(function () {
+				_this2.drag = false;
+				_this2.prevMargin = parseInt(_this2.slides.css("margin-left"));
+			});
 		}
 	}]);
 

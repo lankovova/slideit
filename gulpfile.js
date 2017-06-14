@@ -14,7 +14,7 @@ var // modules
 	browserSync  = require('browser-sync').create(),
 	// production?
 	folder = {
-		src:'assets/'
+		src:'src/'
 	},
 	production = false;
 
