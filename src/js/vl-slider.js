@@ -2,9 +2,9 @@ class Vlslider {
 	constructor(slider) {
 		this.slider = slider.querySelector('.slider');
 		this.slidesWrapper = this.slider.querySelector('.slides');
-		this.slide = this.slidesWrapper.querySelectorAll('.slide');
+		this.slides = this.slidesWrapper.querySelectorAll('.slide');
 
-		this.slidesAmount = this.slide.length;
+		this.slidesAmount = this.slides.length;
 		this.currentSlide = 0;
 
 		// Init slider size
@@ -20,8 +20,8 @@ class Vlslider {
 
 	// Resize slider
 	setSize() {
-		this.slidesWrapper.style.width = this.slider.offsetWidth * this.slide.length + 'px';
-		this.slide.forEach(slide => slide.style.width = this.slider.offsetWidth + 'px');
+		this.slidesWrapper.style.width = this.slider.offsetWidth * this.slides.length + 'px';
+		this.slides.forEach(slide => slide.style.width = this.slider.offsetWidth + 'px');
 		this.slidesWrapper.style.marginLeft = -this.slider.offsetWidth * this.currentSlide + 'px';
 	}
 
