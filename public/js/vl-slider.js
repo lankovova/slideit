@@ -10,9 +10,9 @@ var Vlslider = function () {
 
 		_classCallCheck(this, Vlslider);
 
-		this.slider = slider.find('.slider');
-		this.slides = this.slider.find('.slides');
-		this.slide = this.slides.find('.slide');
+		this.slider = slider.querySelector('.slider');
+		this.slidesWrapper = this.slider.querySelector('.slides');
+		this.slide = this.slidesWrapper.querySelectorAll('.slide');
 
 		this.slidesAmount = this.slide.length;
 		this.currentSlide = 0;
@@ -20,25 +20,18 @@ var Vlslider = function () {
 		// Init slider size
 		this.setSize();
 		// Click to slide left
-		this.slider.find('#left').click(function () {
+		this.slider.querySelector('#left').onclick = function () {
 			return _this.slideLeft();
-		});
+		};
 		// Click to slide right
-		this.slider.find('#right').click(function () {
+		this.slider.querySelector('#right').onclick = function () {
 			return _this.slideRight();
-		});
+		};
 
-		// Adaptive sizing
-		$(window).resize(function () {
-			_this.setSize();
-			_this.slides.css({ 'margin-left': -_this.slider.width() * _this.currentSlide });
-		});
-
-		// Drag functionality
-		// this.drag = false;
-		// this.prevMargin = 0;
-
-		// this.draggingEvents();
+		// Adaptive sizes
+		window.onresize = function () {
+			return _this.setSize();
+		};
 	}
 
 	// Resize slider
@@ -47,28 +40,15 @@ var Vlslider = function () {
 	_createClass(Vlslider, [{
 		key: 'setSize',
 		value: function setSize() {
-			this.slides.width(this.slider.width() * this.slide.length);
-			this.slide.width(this.slider.width());
+			var _this2 = this;
+
+			this.slidesWrapper.style.width = this.slider.offsetWidth * this.slide.length + 'px';
+			this.slide.forEach(function (slide) {
+				return slide.style.width = _this2.slider.offsetWidth + 'px';
+			});
+			this.slidesWrapper.style.marginLeft = -this.slider.offsetWidth * this.currentSlide + 'px';
 		}
 
-		// TODO: Slide if enough draged
-		// TODO: Prevent sliding to empty space
-		// Move slider to cursor offset
-
-	}, {
-		key: 'slideToCursor',
-		value: function slideToCursor(offset) {
-			this.slides.css({ 'margin-left': this.prevMargin + offset - this.dragStartPos });
-		}
-
-		// Slide to destination slide
-
-	}, {
-		key: 'slideTo',
-		value: function slideTo(destinationSlide) {
-			this.slides.css({ 'margin-left': -this.slider.width() * destinationSlide });
-			this.currentSlide = destinationSlide;
-		}
 		// Slide left
 
 	}, {
@@ -83,33 +63,13 @@ var Vlslider = function () {
 		value: function slideRight() {
 			this.currentSlide === this.slidesAmount - 1 ? this.slideTo(0) : this.slideTo(this.currentSlide + 1);
 		}
-
-		// TODO: Implement this shit
+		// Slide to destination slide
 
 	}, {
-		key: 'draggingEvents',
-		value: function draggingEvents() {
-			var _this2 = this;
-
-			// Mouse drag events
-			this.slider.mousedown(function (event) {
-				_this2.drag = true;
-				_this2.dragStartPos = event.pageX - _this2.slider.offset().left;
-			});
-			this.slider.mousemove(function (event) {
-				if (_this2.drag) {
-					var x = event.pageX - _this2.slider.offset().left;
-					_this2.slideToCursor(x);
-				}
-			});
-			this.slider.mouseup(function () {
-				_this2.drag = false;
-				_this2.prevMargin = parseInt(_this2.slides.css("margin-left"));
-			});
-			this.slider.mouseleave(function () {
-				_this2.drag = false;
-				_this2.prevMargin = parseInt(_this2.slides.css("margin-left"));
-			});
+		key: 'slideTo',
+		value: function slideTo(destinationSlide) {
+			this.slidesWrapper.style.marginLeft = -this.slider.offsetWidth * destinationSlide + 'px';
+			this.currentSlide = destinationSlide;
 		}
 	}]);
 

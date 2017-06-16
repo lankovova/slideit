@@ -44,13 +44,12 @@
 		</div>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="public/js/vl-slider.js"></script>
 
 	<script>
-		$(function () {
-			var firstSlider = new Vlslider($('.first-slider-wrapper'));
-		});
+		(function(){
+			var firstSlider = new Vlslider(document.querySelector(".first-slider-wrapper"));
+		})();
 	</script>
 
 </body>

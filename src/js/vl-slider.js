@@ -1,8 +1,8 @@
 class Vlslider {
 	constructor(slider) {
-		this.slider = slider.find('.slider');
-		this.slides = this.slider.find('.slides');
-		this.slide = this.slides.find('.slide');
+		this.slider = slider.querySelector('.slider');
+		this.slidesWrapper = this.slider.querySelector('.slides');
+		this.slide = this.slidesWrapper.querySelectorAll('.slide');
 
 		this.slidesAmount = this.slide.length;
 		this.currentSlide = 0;
@@ -10,70 +10,32 @@ class Vlslider {
 		// Init slider size
 		this.setSize();
 		// Click to slide left
-		this.slider.find('#left').click(() => this.slideLeft());
+		this.slider.querySelector('#left').onclick = () => this.slideLeft();
 		// Click to slide right
-		this.slider.find('#right').click(() => this.slideRight());
+		this.slider.querySelector('#right').onclick = () => this.slideRight();
 
-		// Adaptive sizing
-		$(window).resize(() => {
-			this.setSize();
-			this.slides.css({ 'margin-left': -this.slider.width() * this.currentSlide });
-		});
-
-		// Drag functionality
-		// this.drag = false;
-		// this.prevMargin = 0;
-
-		// this.draggingEvents();
+		// Adaptive sizes
+		window.onresize = () => this.setSize();
 	}
 
 	// Resize slider
 	setSize() {
-		this.slides.width(this.slider.width() * this.slide.length);
-		this.slide.width(this.slider.width());
+		this.slidesWrapper.style.width = this.slider.offsetWidth * this.slide.length + 'px';
+		this.slide.forEach(slide => slide.style.width = this.slider.offsetWidth + 'px');
+		this.slidesWrapper.style.marginLeft = -this.slider.offsetWidth * this.currentSlide + 'px';
 	}
 
-	// TODO: Slide if enough draged
-	// TODO: Prevent sliding to empty space
-	// Move slider to cursor offset
-	slideToCursor(offset) {
-		this.slides.css({ 'margin-left': this.prevMargin + offset - this.dragStartPos });
-	}
-
-	// Slide to destination slide
-	slideTo(destinationSlide) {
-		this.slides.css({ 'margin-left': -this.slider.width() * destinationSlide });
-		this.currentSlide = destinationSlide;
-	}
 	// Slide left
 	slideLeft() {
 		(this.currentSlide === 0) ? this.slideTo(this.slidesAmount - 1) : this.slideTo(this.currentSlide - 1);
 	}
 	// Slide right
 	slideRight() {
-		(this.currentSlide === (this.slidesAmount - 1)) ? this.slideTo(0) : this.slideTo(this.currentSlide + 1);
+		(this.currentSlide === this.slidesAmount - 1) ? this.slideTo(0) : this.slideTo(this.currentSlide + 1);
 	}
-
-	// TODO: Implement this shit
-	draggingEvents() {
-		// Mouse drag events
-		this.slider.mousedown(event => {
-			this.drag = true;
-			this.dragStartPos = event.pageX - this.slider.offset().left;
-		});
-		this.slider.mousemove(event => {
-			if (this.drag) {
-				let x = event.pageX - this.slider.offset().left;
-				this.slideToCursor(x);
-			}
-		});
-		this.slider.mouseup(() => {
-			this.drag = false;
-			this.prevMargin = parseInt(this.slides.css("margin-left"));
-		});
-		this.slider.mouseleave(() => {
-			this.drag = false;
-			this.prevMargin = parseInt(this.slides.css("margin-left"));
-		});
+	// Slide to destination slide
+	slideTo(destinationSlide) {
+		this.slidesWrapper.style.marginLeft = -this.slider.offsetWidth * destinationSlide + 'px';
+		this.currentSlide = destinationSlide;
 	}
 }
